@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import edu.ktu.doggyviews.databinding.FragmentDogBinding
 
 class DogFragment : Fragment() {
 
@@ -36,36 +37,19 @@ class DogFragment : Fragment() {
     // Currently shown dog
     private var dogIndex = 0
 
-    // Views that are used to show a dog's info
-    private lateinit var nameText: TextView
-    private lateinit var ageText: TextView
-    private lateinit var breedText: TextView
-    private lateinit var breedImageView: ImageView
-
+    // Reference to the data binding object
+    lateinit var binding : FragmentDogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_dog, container, false)
-
-        // Assign references to the views we'll need
-        nameText = view.findViewById(R.id.name_text)
-        ageText = view.findViewById(R.id.age_text)
-        breedText = view.findViewById(R.id.breed_text)
-        breedImageView = view.findViewById(R.id.breed_img)
-
-        // Set click listeners to buttons
-        view.findViewById<Button>(R.id.next_btn).setOnClickListener {
-            nextDog()
-        }
-        view.findViewById<Button>(R.id.prev_btn).setOnClickListener {
-            previousDog()
-        }
-
-        // Return the inflated view
-        return view
+        binding = FragmentDogBinding.inflate(inflater, container, false)
+        // Set the fragment variable to enable click listeners on buttons
+        binding.fragment = this
+        // Return the root view of the binding
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,16 +58,14 @@ class DogFragment : Fragment() {
         showDog()
     }
 
-    // Set dog data to each of the views in the layout
     private fun showDog() {
-        nameText.text = dogs[dogIndex].name
-        ageText.text = dogs[dogIndex].age.toString()
-        breedText.text = dogs[dogIndex].breed.breedName
-        breedImageView.setImageResource(dogs[dogIndex].imgResId)
+        // All we have to do is set the dog variable for the binding
+        // The layout itself will decide how to use the object
+        binding.dog = dogs[dogIndex]
     }
 
     // Show next dog
-    private fun nextDog() {
+    fun nextDog() {
         dogIndex++
         if (dogIndex > dogs.lastIndex)
             dogIndex = 0
@@ -91,7 +73,7 @@ class DogFragment : Fragment() {
     }
 
     // Show previous dog
-    private fun previousDog() {
+    fun previousDog() {
         dogIndex--
         if (dogIndex < 0)
             dogIndex = dogs.lastIndex
