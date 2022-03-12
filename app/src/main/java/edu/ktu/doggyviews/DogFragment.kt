@@ -37,16 +37,18 @@ class DogFragment : Fragment() {
     // Currently shown dog
     private var dogIndex = 0
 
+    // Reference to the view binding
     private lateinit var binding : FragmentDogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+        // Inflate the binding
         binding = FragmentDogBinding.inflate(inflater, container, false)
 
         // Set click listeners to buttons
+        // The buttons are accessed directly from the binding
         binding.nextBtn.setOnClickListener {
             nextDog()
         }
@@ -65,6 +67,7 @@ class DogFragment : Fragment() {
     }
 
     // Set dog data to each of the views in the layout
+    // The views are accessed directly from the binding
     private fun showDog() {
         binding.nameText.text = dogs[dogIndex].name
         binding.ageText.text = dogs[dogIndex].age.toString()
