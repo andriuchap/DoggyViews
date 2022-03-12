@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import edu.ktu.doggyviews.databinding.FragmentDogBinding
 
 class DogFragment : Fragment() {
 
@@ -36,36 +37,25 @@ class DogFragment : Fragment() {
     // Currently shown dog
     private var dogIndex = 0
 
-    // Views that are used to show a dog's info
-    private lateinit var nameText: TextView
-    private lateinit var ageText: TextView
-    private lateinit var breedText: TextView
-    private lateinit var breedImageView: ImageView
-
+    private lateinit var binding : FragmentDogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_dog, container, false)
-
-        // Assign references to the views we'll need
-        nameText = view.findViewById(R.id.name_text)
-        ageText = view.findViewById(R.id.age_text)
-        breedText = view.findViewById(R.id.breed_text)
-        breedImageView = view.findViewById(R.id.breed_img)
+        binding = FragmentDogBinding.inflate(inflater, container, false)
 
         // Set click listeners to buttons
-        view.findViewById<Button>(R.id.next_btn).setOnClickListener {
+        binding.nextBtn.setOnClickListener {
             nextDog()
         }
-        view.findViewById<Button>(R.id.prev_btn).setOnClickListener {
+        binding.prevBtn.setOnClickListener {
             previousDog()
         }
 
         // Return the inflated view
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,10 +66,10 @@ class DogFragment : Fragment() {
 
     // Set dog data to each of the views in the layout
     private fun showDog() {
-        nameText.text = dogs[dogIndex].name
-        ageText.text = dogs[dogIndex].age.toString()
-        breedText.text = dogs[dogIndex].breed.breedName
-        breedImageView.setImageResource(dogs[dogIndex].imgResId)
+        binding.nameText.text = dogs[dogIndex].name
+        binding.ageText.text = dogs[dogIndex].age.toString()
+        binding.breedText.text = dogs[dogIndex].breed.breedName
+        binding.breedImg.setImageResource(dogs[dogIndex].imgResId)
     }
 
     // Show next dog
