@@ -50,7 +50,7 @@
             app:layout_constraintVertical_bias="0.33"
             app:layout_constraintVertical_chainStyle="packed"
             tools:src="@drawable/german_shepherd_192"
-            app:imageResource="@{dog.imgResId}"/>
+            app:dogImage="@{dog}"/>
 
         <TextView
             android:id="@+id/breed_text"
@@ -62,7 +62,7 @@
             app:layout_constraintStart_toStartOf="@+id/breed_img"
             app:layout_constraintTop_toBottomOf="@+id/breed_img"
             tools:text="German Shepherd"
-            android:text="@{dog.breed.breedName}"/>
+            app:dogBreed="@{dog}"/>
 
         <TextView
             android:id="@+id/name_text"
@@ -74,7 +74,7 @@
             app:layout_constraintStart_toStartOf="@+id/breed_img"
             app:layout_constraintTop_toBottomOf="@+id/breed_text"
             tools:text="Doggy"
-            android:text="@{dog.name}"/>
+            app:dogName="@{dog}"/>
 
         <TextView
             android:id="@+id/age_text"
@@ -86,6 +86,6 @@
             app:layout_constraintStart_toStartOf="@+id/breed_img"
             app:layout_constraintTop_toBottomOf="@+id/name_text"
             tools:text="7"
-            android:text="@{String.valueOf(dog.age)}"/>
+            app:dogAge="@{dog}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
